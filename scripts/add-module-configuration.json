@@ -1,0 +1,15 @@
+{
+	"_comment": "This file is used by the add-module.ps1 script. This file contains configuration values for renaming a folder structure and Visual Studio project files for a new Feature or Foundation module. The new name and type of module is requested by the script once that is started.",
+	"config": {
+		"sourceFolderName": "\\src",
+		"fileExtensionsToUpdateContentRegex": "(.config|.csproj|.cs|.cshtml|.feature|.js|.nuspec|.role|.sitecore|.targets)$",
+		"fileExtensionsToUpdateProjectGuidsRegex": "(.csproj|AssemblyInfo.cs)$",
+		"oldNamespacePrefix": "_NamespacePrefix_",
+		"oldModuleType": "_ModuleType_",
+		"oldModuleName": "_Name_",
+		"oldProjectGuid": "_ProjectGuid_",
+		"oldTestProjectGuid": "_TestProjectGuid_",
+		"newFeatureNamespacePrefix": "OrganizationNS.ClientNS",
+		"newFoundationNamespacePrefix": "OrganizationNS"
+	}
+}
