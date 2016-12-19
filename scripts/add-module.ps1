@@ -221,7 +221,7 @@ try
             $modulePath = Get-ModulePath
             Log "Copying module template to $modulePath." -FontColor Magenta
             Copy-Item -Path "$copyModuleFromLocation" -Destination "$modulePath" -Recurse
-            Rename-Module  -StartPath "$modulePath" -ModuleType $moduleType
+            Rename-Module  -StartPath "$modulePath"
 
             Log "Completed adding $moduleType $moduleName." -FontColor Green
         }
