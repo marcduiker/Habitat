@@ -93,7 +93,7 @@ function Rename-Files
     Log "Renaming $pattern files located in $startPath." -FontColor Magenta
     $fileItems = Get-ChildItem -File -Path "$startPath" -Filter $pattern -Recurse -Force | Where-Object { $_.FullName -notmatch "\\(obj|bin)\\?" } 
     $fileItems -join ", " | Log
-    $fileItems | Rename-Item -NewName { $_.Name -replace $OldValue, $newValue } -Force
+    $fileItems | Rename-Item -NewName { $_.Name -replace $oldValue, $newValue } -Force
 }
 
 function Rename-Folders
