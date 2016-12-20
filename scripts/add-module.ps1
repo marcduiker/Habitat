@@ -14,38 +14,39 @@ function Create-Config
     [CmdletBinding()]
     Param(
         [Parameter(Position=0, Mandatory=$True)]
-        [string]$jsonConfigFilePath,
+        [string]$JsonConfigFilePath,
         [Parameter(Position=1, Mandatory=$True)]
-        [string]$moduleType,
+        [string]$ModuleType,
         [Parameter(Position=2, Mandatory=$True)]
-        [string]$moduleName
+        [string]$ModuleName
     )
 
-    $jsonFile = Get-Content -Raw -Path "$jsonConfigFilePath" | ConvertFrom-Json
+    $jsonFile = Get-Content -Raw -Path "$JsonConfigFilePath" | ConvertFrom-Json
     
     if ($jsonFile)
     {
         $config = New-Object psobject
         Add-Member -InputObject $config -Name SourceFolderName -Value $jsonFile.config.sourceFolderName -MemberType NoteProperty
+        Add-Member -InputObject $config -Name OldNamespacePrefix -Value $jsonFile.config.oldNamespacePrefix -MemberType NoteProperty
         Add-Member -InputObject $config -Name OldModuleType -Value $jsonFile.config.oldModuleType -MemberType NoteProperty
         Add-Member -InputObject $config -Name OldModuleName -Value $jsonFile.config.oldModuleName -MemberType NoteProperty
         Add-Member -InputObject $config -Name OldProjectGuid -Value $jsonFile.config.oldProjectGuid -MemberType NoteProperty
         Add-Member -InputObject $config -Name OldTestProjectGuid -Value $jsonFile.config.oldTestProjectGuid -MemberType NoteProperty
         Add-Member -InputObject $config -Name FileExtensionsToUpdateContentRegex -Value $jsonFile.config.fileExtensionsToUpdateContentRegex -MemberType NoteProperty
         Add-Member -InputObject $config -Name FileExtensionsToUpdateProjectGuidsRegex -Value $jsonFile.config.fileExtensionsToUpdateProjectGuidsRegex -MemberType NoteProperty
-        Add-Member -InputObject $config -Name NewModuleType -Value $moduleType -MemberType NoteProperty
-        Add-Member -InputObject $config -Name NewModuleName -Value $moduleName -MemberType NoteProperty
+        Add-Member -InputObject $config -Name NewModuleType -Value $ModuleType -MemberType NoteProperty
+        Add-Member -InputObject $config -Name NewModuleName -Value $ModuleName -MemberType NoteProperty
         $projectGuid = [guid]::NewGuid().toString().toUpper()
         Add-Member -InputObject $config -Name NewProjectGuid -Value $projectGuid -MemberType NoteProperty
         $testProjectGuid = [guid]::NewGuid().toString().toUpper()
         Add-Member -InputObject $config -Name NewTestProjectGuid -Value $testProjectGuid -MemberType NoteProperty
         
         $newNamespacePrefix = ""
-        if ($moduleType -eq $featureModuleType)
+        if ($ModuleType -eq $featureModuleType)
         {
             $newNamespacePrefix = $jsonFile.config.newFeatureNamespacePrefix
         }
-        if ($moduleType -eq $foundationModuleType)
+        if ($ModuleType -eq $foundationModuleType)
         {
             $newNamespacePrefix = $jsonFile.config.newFoundationNamespacePrefix
         }
@@ -60,21 +61,21 @@ function Rename-Module
     [CmdletBinding()]
     Param(
         [Parameter(Position=1, Mandatory=$True)]
-        [string]$startPath
+        [string]$StartPath
     )
 
-    Rename-Folders -StartPath "$startPath" -OldValue $config.OldModuleType -NewValue $config.NewModuleType
-    Rename-Folders -StartPath "$startPath" -OldValue $config.OldModuleName -NewValue $config.NewModuleName
+    Rename-Folders -StartPath "$StartPath" -OldValue $config.OldModuleType -NewValue $config.NewModuleType
+    Rename-Folders -StartPath "$StartPath" -OldValue $config.OldModuleName -NewValue $config.NewModuleName
 
-    Rename-Files -StartPath "$startPath" -OldValue $config.OldNamespacePrefix -NewValue $config.NewNamespacePrefix
-    Rename-Files -StartPath "$startPath" -OldValue $config.OldModuleType -NewValue $config.NewModuleType
-    Rename-Files -StartPath "$startPath" -OldValue $config.OldModuleName -NewValue $config.NewModuleName
+    Rename-Files -StartPath "$StartPath" -OldValue $config.OldNamespacePrefix -NewValue $config.NewNamespacePrefix
+    Rename-Files -StartPath "$StartPath" -OldValue $config.OldModuleType -NewValue $config.NewModuleType
+    Rename-Files -StartPath "$StartPath" -OldValue $config.OldModuleName -NewValue $config.NewModuleName
 
-    Update-FileContent -StartPath "$startPath" -OldValue $config.OldProjectGuid -NewValue $config.NewProjectGuid -FileExtensionsRegex $config.fileExtensionsToUpdateProjectGuidsRegex
-    Update-FileContent -StartPath "$startPath" -OldValue $config.OldTestProjectGuid -NewValue $config.NewTestProjectGuid -FileExtensionsRegex $config.fileExtensionsToUpdateProjectGuidsRegex
-    Update-FileContent -StartPath "$startPath" -OldValue $config.OldNamespacePrefix -NewValue $config.NewNamespacePrefix -FileExtensionsRegex $config.FileExtensionsToUpdateContentRegex
-    Update-FileContent -StartPath "$startPath" -OldValue $config.OldModuleType -NewValue $config.NewModuleType -FileExtensionsRegex $config.FileExtensionsToUpdateContentRegex
-    Update-FileContent -StartPath "$startPath" -OldValue $config.OldModuleName -NewValue $config.NewModuleName -FileExtensionsRegex $config.FileExtensionsToUpdateContentRegex
+    Update-FileContent -StartPath "$StartPath" -OldValue $config.OldProjectGuid -NewValue $config.NewProjectGuid -FileExtensionsRegex $config.fileExtensionsToUpdateProjectGuidsRegex
+    Update-FileContent -StartPath "$StartPath" -OldValue $config.OldTestProjectGuid -NewValue $config.NewTestProjectGuid -FileExtensionsRegex $config.fileExtensionsToUpdateProjectGuidsRegex
+    Update-FileContent -StartPath "$StartPath" -OldValue $config.OldNamespacePrefix -NewValue $config.NewNamespacePrefix -FileExtensionsRegex $config.FileExtensionsToUpdateContentRegex
+    Update-FileContent -StartPath "$StartPath" -OldValue $config.OldModuleType -NewValue $config.NewModuleType -FileExtensionsRegex $config.FileExtensionsToUpdateContentRegex
+    Update-FileContent -StartPath "$StartPath" -OldValue $config.OldModuleName -NewValue $config.NewModuleName -FileExtensionsRegex $config.FileExtensionsToUpdateContentRegex
 }
 
 function Rename-Files
@@ -82,18 +83,18 @@ function Rename-Files
     [CmdletBinding()]
     Param(
         [Parameter(Position=1, Mandatory=$true)]
-        [string]$startPath,
+        [string]$StartPath,
         [Parameter(Position=2, Mandatory=$true)]
-        [string]$oldValue,
+        [string]$OldValue,
         [Parameter(Position=3, Mandatory=$true)]
-        [string]$newValue
+        [string]$NewValue
     )
 
-    $pattern = "*$oldValue*"
-    Log "Renaming $pattern files located in $startPath." -FontColor Magenta
-    $fileItems = Get-ChildItem -File -Path "$startPath" -Filter $pattern -Recurse -Force | Where-Object { $_.FullName -notmatch "\\(obj|bin)\\?" } 
+    $pattern = "*$OldValue*"
+    Log "Renaming $pattern files located in $StartPath." -FontColor Magenta
+    $fileItems = Get-ChildItem -File -Path "$StartPath" -Filter $pattern -Recurse -Force | Where-Object { $_.FullName -notmatch "\\(obj|bin)\\?" } 
     $fileItems -join ", " | Log
-    $fileItems | Rename-Item -NewName { $_.Name -replace $oldValue, $newValue } -Force
+    $fileItems | Rename-Item -NewName { $_.Name -replace $OldValue, $NewValue } -Force
 }
 
 function Rename-Folders
@@ -101,19 +102,19 @@ function Rename-Folders
     [CmdletBinding()]
     Param(
         [Parameter(Position=1, Mandatory=$true)]
-        [string]$startPath,
+        [string]$StartPath,
         [Parameter(Position=2, Mandatory=$true)]
-        [string]$oldValue,
+        [string]$OldValue,
         [Parameter(Position=3, Mandatory=$true)]
-        [string]$newValue
+        [string]$NewValue
     )
 
-    $pattern = "*$oldValue*"
-    Log "Renaming $pattern folders located in $startPath." -FontColor Magenta
-    $folderItems = Get-ChildItem -Directory -Path "$startPath" -Recurse -Filter $pattern -Force | Where-Object { $_.FullName -notmatch "\\(obj|bin)\\?" } | Sort-Object { $_.FullName.Length } -Descending
+    $pattern = "*$OldValue*"
+    Log "Renaming $pattern folders located in $StartPath." -FontColor Magenta
+    $folderItems = Get-ChildItem -Directory -Path "$StartPath" -Recurse -Filter $pattern -Force | Where-Object { $_.FullName -notmatch "\\(obj|bin)\\?" } | Sort-Object { $_.FullName.Length } -Descending
     $folderItems -join ", " | Log
 
-    $folderItems | Rename-Item -NewName { $_.Name -replace $oldValue, $newValue } -Force
+    $folderItems | Rename-Item -NewName { $_.Name -replace $OldValue, $NewValue } -Force
 }
 
 function Update-FileContent
@@ -121,22 +122,22 @@ function Update-FileContent
     [CmdletBinding()]
     Param(
         [Parameter(Position=1, Mandatory=$true)]
-        [string]$startPath,
+        [string]$StartPath,
         [Parameter(Position=2, Mandatory=$true)]
-        [string]$oldValue,
+        [string]$OldValue,
         [Parameter(Position=3, Mandatory=$true)]
-        [string]$newValue,
+        [string]$NewValue,
         [Parameter(Position=4, Mandatory=$true)]
-        [string]$fileExtensionsRegex
+        [string]$FileExtensionsRegex
     )
 
-    Log "Renaming $oldValue to $newValue in files matching $fileExtensionsRegex located in $startPath." -FontColor Magenta
+    Log "Renaming $OldValue to $NewValue in files matching $FileExtensionsRegex located in $StartPath." -FontColor Magenta
 
-    $filesToUpdate = Get-ChildItem -File -Path "$startPath" -Recurse -Force | Where-Object { ( $_.FullName -notmatch "\\(obj|bin)\\?") -and ($_.Name -match $fileExtensionsRegex) } | Select-String -Pattern $oldValue | group Path | select -ExpandProperty Name
+    $filesToUpdate = Get-ChildItem -File -Path "$StartPath" -Recurse -Force | Where-Object { ( $_.FullName -notmatch "\\(obj|bin)\\?") -and ($_.Name -match $FileExtensionsRegex) } | Select-String -Pattern $OldValue | group Path | select -ExpandProperty Name
     $filesToUpdate -join ", " | Log
     foreach ($fileToUpdate in $filesToUpdate)
     {
-        (Get-Content $fileToUpdate) -ireplace [regex]::Escape($oldValue), $newValue | Set-Content $fileToUpdate -Force
+        (Get-Content $fileToUpdate) -ireplace [regex]::Escape($OldValue), $NewValue | Set-Content $fileToUpdate -Force
     }
 }
 
@@ -221,7 +222,7 @@ try
             $modulePath = Get-ModulePath
             Log "Copying module template to $modulePath." -FontColor Magenta
             Copy-Item -Path "$copyModuleFromLocation" -Destination "$modulePath" -Recurse
-            Rename-Module  -StartPath "$modulePath"
+            Rename-Module -StartPath "$modulePath"
 
             Log "Completed adding $moduleType $moduleName." -FontColor Green
         }
