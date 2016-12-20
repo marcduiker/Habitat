@@ -91,9 +91,9 @@ function Rename-Files
     )
 
     $pattern = "*$OldValue*"
-    Log "Renaming $pattern files located in $StartPath." -FontColor Magenta
+    Log "Renaming $pattern files located in $StartPath." -FontColor White
     $fileItems = Get-ChildItem -File -Path "$StartPath" -Filter $pattern -Recurse -Force | Where-Object { $_.FullName -notmatch "\\(obj|bin)\\?" } 
-    $fileItems -join ", " | Log
+    $fileItems -join "`r`n" | Log
     $fileItems | Rename-Item -NewName { $_.Name -replace $OldValue, $NewValue } -Force
 }
 
@@ -110,9 +110,9 @@ function Rename-Folders
     )
 
     $pattern = "*$OldValue*"
-    Log "Renaming $pattern folders located in $StartPath." -FontColor Magenta
+    Log "Renaming $pattern folders located in $StartPath." -FontColor White
     $folderItems = Get-ChildItem -Directory -Path "$StartPath" -Recurse -Filter $pattern -Force | Where-Object { $_.FullName -notmatch "\\(obj|bin)\\?" } | Sort-Object { $_.FullName.Length } -Descending
-    $folderItems -join ", " | Log
+    $folderItems -join "`r`n" | Log
 
     $folderItems | Rename-Item -NewName { $_.Name -replace $OldValue, $NewValue } -Force
 }
@@ -131,10 +131,10 @@ function Update-FileContent
         [string]$FileExtensionsRegex
     )
 
-    Log "Renaming $OldValue to $NewValue in files matching $FileExtensionsRegex located in $StartPath." -FontColor Magenta
+    Log "Renaming $OldValue to $NewValue in files matching $FileExtensionsRegex located in $StartPath." -FontColor White
 
     $filesToUpdate = Get-ChildItem -File -Path "$StartPath" -Recurse -Force | Where-Object { ( $_.FullName -notmatch "\\(obj|bin)\\?") -and ($_.Name -match $FileExtensionsRegex) } | Select-String -Pattern $OldValue | group Path | select -ExpandProperty Name
-    $filesToUpdate -join ", " | Log
+    $filesToUpdate -join "`r`n" | Log
     foreach ($fileToUpdate in $filesToUpdate)
     {
         (Get-Content $fileToUpdate) -ireplace [regex]::Escape($OldValue), $NewValue | Set-Content $fileToUpdate -Force
@@ -220,7 +220,7 @@ try
             }
             
             $modulePath = Get-ModulePath
-            Log "Copying module template to $modulePath." -FontColor Magenta
+            Log "Copying module template to $modulePath." -FontColor White
             Copy-Item -Path "$copyModuleFromLocation" -Destination "$modulePath" -Recurse
             Rename-Module -StartPath "$modulePath"
 
