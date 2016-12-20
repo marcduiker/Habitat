@@ -9,5 +9,9 @@
   public class _Name_Repository : I_Name_Repository
   {
     // TODO: Implement repository specific methods to get/create/update data.
+    public _Name_Repository()
+    {
+      throw new NotImplementedException();
+    }
   }
 }
