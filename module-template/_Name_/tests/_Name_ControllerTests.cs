@@ -4,14 +4,14 @@
   using System.Collections.Generic;
   using System.Web.Mvc;
   using Controllers;
-  using FakeDb;
+  using Sitecore.FakeDb;
   using FluentAssertions;
   using Repositories;
   using Xunit;
-  using Foundation.Testing.Attributes;
+  using Sitecore.Foundation.Testing.Attributes;
   using Models;
   using NSubstitute;
-  using Pipelines;
+  using Sitecore.Pipelines;
 
 
   public class _Name_ControllerTests

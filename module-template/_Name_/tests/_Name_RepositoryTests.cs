@@ -2,8 +2,8 @@
 {
   using System;
   using System.Linq;
-  using Data;
-  using FakeDb;
+  using Sitecore.Data;
+  using Sitecore.FakeDb;
   using FluentAssertions;
   using NSubstitute;
   using Ploeh.AutoFixture.AutoNSubstitute;

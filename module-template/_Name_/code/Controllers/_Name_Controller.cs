@@ -2,10 +2,10 @@
 {
   using System;
   using System.Web.Mvc;
-  using Data;
+  using Sitecore.Data;
   using Repositories;
 
-  public class _Name_Controller : Mvc.Controllers.SitecoreController
+  public class _Name_Controller : Sitecore.Mvc.Controllers.SitecoreController
   {
     private readonly I_Name_Repository _Name_Repository;
 

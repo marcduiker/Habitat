@@ -4,7 +4,7 @@
   using System.Collections.Generic;
   using System.Linq;
   using Models;
-  using Foundation.SitecoreExtensions.Extensions;
+  using Sitecore.Foundation.SitecoreExtensions.Extensions;
 
   public class _Name_Repository : I_Name_Repository
   {

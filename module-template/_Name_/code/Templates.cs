@@ -1,6 +1,6 @@
 ﻿namespace _NamespacePrefix_._ModuleType_._Name_
 {
-  using Data;
+  using Sitecore.Data;
 
   public struct Templates
   {
