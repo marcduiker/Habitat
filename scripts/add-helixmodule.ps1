@@ -190,7 +190,7 @@ function Add-Module
     {
         if (-not $dte.Solution.FullName)
         {
-            throw [System.ArgumentException] "There is no active solution. Load a Sitecore Helix solution first which contains a $addHelixModuleConfigFile file."
+            throw [System.ArgumentException] "There is no active solution. Load a Sitecore Helix solution first which contains an $addHelixModuleConfigFile file."
         }
 
         $solutionRootFolder = [System.IO.Path]::GetDirectoryName($dte.Solution.FullName)
@@ -218,7 +218,7 @@ function Add-Module
         Rename-Module -StartPath "$modulePath"
         Add-Projects -ModulePath "$modulePath"
 
-        Write-Output "Completed adding $moduleType $moduleName."
+        Write-Output "Completed adding $($config.NamespacePrefix).$moduleType.$moduleName."
     }
     catch
     {
