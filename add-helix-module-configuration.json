@@ -1,0 +1,27 @@
+{
+	"__comment": "This configuration file is used by the add-helix-module.ps1 script which creates modules for Sitecore Helix solutions.",
+	"config": {
+		"__comment__moduleTemplatePath": "Update the moduleTemplatePath property to point to your module-template location.",
+		"moduleTemplatePath": "C:\\dev\\git\\HabitatFork\\module-template",
+		"__comment__featureNamespacePrefix": "Replace the value for featureNamespacePrefix with a suitable namespace prefix. The Feature.<ModuleName> will be appended by the script.",
+		"featureNamespacePrefix": "CompanyNamespace.ClientNamespace",
+		"__comment__foundationNamespacePrefix": "Replace the value for featureNamespacePrefix with a suitable namespace prefix. The Foundation.<ModuleName> will be appended by the script.",
+		"foundationNamespacePrefix": "CompanyNamespace",
+		"__comment__sourceFolderName": "The sourcefolder should contain the relative path (from the sln file folder) where the Feature, Foundation and Project folders are located. The Sitecore Habitat default is '\\src'.",
+		"sourceFolderName": "\\src",
+		"__comment__fileExtensionsToUpdateContentRegex": "The regex in the fileExtensionsToUpdateContentRegex property is used to find the files which contain tokens which will be replaced with new values by the script.",
+		"fileExtensionsToUpdateContentRegex": "(.config|.csproj|.cs|.cshtml|.feature|.js|.nuspec|.role|.sitecore|.targets)$",
+		"__comment__fileExtensionsToUpdateProjectGuidsRegex" : "The regex in the fileExtensionsToUpdateProjectGuidsRegex property is used to find the files which need to have VS project GUIDs inserted.",
+		"fileExtensionsToUpdateProjectGuidsRegex": "(.csproj|AssemblyInfo.cs)$",
+		"__comment__": "The templateNamespacePrefix property contains the token which will be replaced with the value from either featureNamespacePrefix or foundationNamespacePrefix.",
+		"templateNamespacePrefix": "_NamespacePrefix_",
+		"__comment__templateModuleType": "The templateModuleType property contains the token variable which will be replaced with Feature or Foundation.",
+		"templateModuleType": "_ModuleType_",
+		"__comment__templateModuleName": "The templateModuleName property contains the token which will be replace with the actual ModuleName.",
+		"templateModuleName": "_Name_",
+		"__comment__templateProjectGuid": "The templateProjectGuid property contains the token which will be replaced by a new GUID and used as VS module project identifier.",
+		"templateProjectGuid": "_ProjectGuid_",
+		"__comment__templateTestProjectGuid": "The templateTestProjectGuid property contains the token which will be replaced by a new GUID and used as VS test project identifier.",
+		"templateTestProjectGuid": "_TestProjectGuid_"
+	}
+}

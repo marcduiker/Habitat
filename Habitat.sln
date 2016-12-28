@@ -9,6 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configuration", "Configurat
 	ProjectSection(SolutionItems) = preProject
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
+		add-helix-module-configuration.json = add-helix-module-configuration.json
 		applytransform.targets = applytransform.targets
 		gulp-config.js = gulp-config.js
 		gulpfile-ci.js = gulpfile-ci.js
