@@ -1,13 +1,13 @@
 {
 	"__comment": "This configuration file is used by the add-helix-module.ps1 script which creates modules for Sitecore Helix solutions.",
 	"config": {
-		"__comment__moduleTemplatePath": "Update the moduleTemplatePath property to point to the module template location.",
+		"__comment__moduleTemplatePath": "Update the moduleTemplatePath property to point to your module-template location.",
 		"moduleTemplatePath": "C:\\dev\\git\\HabitatFork\\module-template",
-		"__comment__featureNamespacePrefix": "Replace the value for featureNamespacePrefix with a suitable namespace prefix. The Feature.<ModuleName> will be appended by the sccript.",
+		"__comment__featureNamespacePrefix": "Replace the value for featureNamespacePrefix with a suitable namespace prefix. The Feature.<ModuleName> will be appended by the script.",
 		"featureNamespacePrefix": "CompanyNamespace.ClientNamespace",
-		"__comment__foundationNamespacePrefix": "Replace the value for featureNamespacePrefix with a suitable namespace prefix. The Foundation.<ModuleName> will be appended by the sccript.",
+		"__comment__foundationNamespacePrefix": "Replace the value for featureNamespacePrefix with a suitable namespace prefix. The Foundation.<ModuleName> will be appended by the script.",
 		"foundationNamespacePrefix": "CompanyNamespace",
-		"__comment__sourceFolderName": "The sourcefolder should contain the relative path (from the sln file folder) where the Feature, Foundation and Prooject folders are located. The Sitecore Habitat default is '\\src'.",
+		"__comment__sourceFolderName": "The sourcefolder should contain the relative path (from the sln file folder) where the Feature, Foundation and Project folders are located. The Sitecore Habitat default is '\\src'.",
 		"sourceFolderName": "\\src",
 		"__comment__fileExtensionsToUpdateContentRegex": "The regex in the fileExtensionsToUpdateContentRegex property is used to find the files which contain tokens which will be replaced with new values by the script.",
 		"fileExtensionsToUpdateContentRegex": "(.config|.csproj|.cs|.cshtml|.feature|.js|.nuspec|.role|.sitecore|.targets)$",
