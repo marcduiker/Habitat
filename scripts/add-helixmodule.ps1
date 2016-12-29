@@ -1,5 +1,11 @@
 ﻿<#
-    This script renames files, folders & file contents and updates the Visual Studio solution file based configuration values in the add-helix-module-configuration.json file.
+    .SYNOPSIS
+    This script contains the Add-Feature and Add-Foundation methods which can be used to add a new module to a Sitecore Helix based Visual Studio solution.
+    
+    The Visual Studio solution should contain a add-helix-module-configuration.json file containing variables which this script will use.
+    
+    The Add-Feature and Add-Foundation methods can be run from the Pacakge Console Manager as long as this script is loaded in the relevant PowerShell profile. 
+    Run $profile in the Pacakge Manager Console to verify the which profile is used.
 #>
 
 $featureModuleType = "Feature"
