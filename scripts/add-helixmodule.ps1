@@ -1,5 +1,5 @@
 ﻿<#
-    This script renames files, folders and file contents based configuration values in the add-helix-module-configuration.json file.
+    This script renames files, folders & file contents and updates the Visual Studio solution file based configuration values in the add-helix-module-configuration.json file.
 #>
 
 $featureModuleType = "Feature"
@@ -129,11 +129,6 @@ function Update-FileContent
     $filesToUpdate = Get-ChildItem -File -Path "$StartPath" -Recurse -Force | Where-Object { ( $_.FullName -notmatch "\\(obj|bin)\\?") -and ($_.Name -match $FileExtensionsRegex) } | Select-String -Pattern $OldValue | Group-Object Path | Select-Object -ExpandProperty Name
     
     $filesToUpdate | ForEach-Object { (Get-Content $_ ) -ireplace [regex]::Escape($OldValue), $NewValue | Set-Content $_ -Force }
-    
-    #foreach ($fileToUpdate in $filesToUpdate)
-    #{
-    #    (Get-Content $fileToUpdate) -ireplace [regex]::Escape($OldValue), $NewValue | Set-Content $fileToUpdate -Force
-    #}
 }
 
 function Get-ModulePath
